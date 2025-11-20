@@ -26,7 +26,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-base-200 via-base-100 to-base-200">
+    <main className="min-h-screen bg-gradient-to-br from-sky-100 via-blue-50 to-indigo-100">
       {/* Hero Section */}
       <div className="container mx-auto px-4 pt-12 pb-8">
         <div className="text-center mb-12">
