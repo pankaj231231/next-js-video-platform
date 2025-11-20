@@ -86,76 +86,86 @@ export default function VideoPage({ params }: PageProps) {
   }
 
   return (
-    <div className="max-w-6xl mx-auto">
-      {/* Back Button */}
-      <Link 
-        href="/" 
-        className="btn btn-ghost gap-2 mb-4"
-      >
-        <ArrowLeft className="w-4 h-4" />
-        Back to Feed
-      </Link>
+    <div className="min-h-screen bg-gradient-to-br from-base-200 via-base-100 to-base-200">
+      <div className="container mx-auto px-4 py-8">
+        {/* Back Button */}
+        <Link 
+          href="/" 
+          className="btn btn-ghost gap-2 mb-6 hover:bg-primary/10 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Feed
+        </Link>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Video Player */}
-        <div className="lg:col-span-2">
-          <div className="card bg-base-100 shadow-xl">
-            <figure>
-              <div
-                className="w-full relative bg-black"
-                style={{ aspectRatio: "16/9" }}
-              >
-                <Video
-                  src={video.videoUrl}
-                  transformation={[
-                    {
-                      height: "1080",
-                      width: "1920",
-                    },
-                  ]}
-                  controls={true}
-                  className="w-full h-full"
-                />
-              </div>
-            </figure>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Video Player */}
+          <div className="lg:col-span-2">
+            <div className="card bg-base-100 shadow-2xl">
+              <figure className="relative">
+                <div
+                  className="w-full relative bg-black rounded-t-2xl overflow-hidden"
+                  style={{ aspectRatio: "16/9" }}
+                >
+                  <Video
+                    src={video.videoUrl}
+                    transformation={[
+                      {
+                        height: "1080",
+                        width: "1920",
+                      },
+                    ]}
+                    controls={true}
+                    className="w-full h-full"
+                  />
+                </div>
+              </figure>
+            </div>
           </div>
-        </div>
 
-        {/* Video Info */}
-        <div className="lg:col-span-1">
-          <div className="card bg-base-100 shadow-xl">
-            <div className="card-body">
-              <h1 className="card-title text-2xl font-bold">{video.title}</h1>
-              
-              {video.createdAt && (
-                <p className="text-sm text-base-content/60">
-                  {new Date(video.createdAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}
-                </p>
-              )}
+          {/* Video Info */}
+          <div className="lg:col-span-1">
+            <div className="card bg-base-100 shadow-2xl sticky top-24">
+              <div className="card-body">
+                <h1 className="card-title text-2xl font-bold mb-2">{video.title}</h1>
+                
+                {video.createdAt && (
+                  <div className="flex items-center gap-2 text-sm text-base-content/60 mb-4">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    {new Date(video.createdAt).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </div>
+                )}
 
-              <div className="divider"></div>
+                <div className="divider my-2"></div>
 
-              <div>
-                <h3 className="font-semibold mb-2">Description</h3>
-                <p className="text-base-content/80 whitespace-pre-wrap">
-                  {video.description}
-                </p>
+                <div>
+                  <h3 className="font-semibold mb-3 flex items-center gap-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
+                    </svg>
+                    Description
+                  </h3>
+                  <p className="text-base-content/80 whitespace-pre-wrap leading-relaxed">
+                    {video.description}
+                  </p>
+                </div>
+
+                <div className="divider my-4"></div>
+
+                <button
+                  onClick={handleDelete}
+                  disabled={deleting}
+                  className="btn btn-error btn-outline w-full gap-2 hover:btn-error transition-all"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  {deleting ? "Deleting..." : "Delete Video"}
+                </button>
               </div>
-
-              <div className="divider"></div>
-
-              <button
-                onClick={handleDelete}
-                disabled={deleting}
-                className="btn btn-error btn-outline w-full gap-2"
-              >
-                <Trash2 className="w-4 h-4" />
-                {deleting ? "Deleting..." : "Delete Video"}
-              </button>
             </div>
           </div>
         </div>
